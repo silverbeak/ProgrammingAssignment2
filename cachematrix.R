@@ -1,4 +1,12 @@
 ## This is my solution for the "Inverse Matrix Cache" assignment
+## 
+## ## What this class does:
+##   - It contains two functions
+##      * One for creating a special "matrix object" where one can cache the 
+##        inverse of the matrix (makeCacheMatrix)
+##      * And one for calculating, setting and retreiving the cached inverse
+##        (cacheSolve)
+##        
 ## Notes: 
 ##   - Personally I think 8 space indents are way overkill. I prefer 2. 
 ##     So I compromised and made it 4. :)
@@ -8,12 +16,6 @@
 ##     makeCacheMatrix, it is possible to set an invalid inverse using the
 ##     'set' method. This functionality should be hidden from the user
 ##     by internalising the cacheSolve function within makeCacheMatrix.
-## What this class does:
-##   - It contains two functions
-##      * One for creating a special "matrix object" where one can cache the 
-##        inverse of the matrix (makeCacheMatrix)
-##      * And one for calculating, setting and retreiving the cached inverse
-##        (cacheSolve)
 
 
 ## makeCacheMatrix contains a function that will take a square (and invertible)
@@ -27,21 +29,21 @@
 ##  - getCachedInverse: will return the cached inverse of 'x' if it has been
 ##    set, otherwise it will return NULL
 makeCacheMatrix <- function(x = matrix()) {
-  thisInverse <- NULL
-  
-  getOriginalMatrix <- function() x
-  setOriginalMatrix <- function(newX) {
-    thisInverse <<- NULL
-    x <<- newX
-  }
-  
-  getCachedInverse <- function() thisInverse
-  setCachedInverse <- function(inv) thisInverse <<- inv
-  
-  list(getOriginalMatrix = getOriginalMatrix,
-       setCachedInverse = setCachedInverse,
-       setCachedInverse = setCachedInverse,
-       getCachedInverse = getCachedInverse)
+    thisInverse <- NULL
+    
+    getOriginalMatrix <- function() x
+    setOriginalMatrix <- function(newX) {
+        thisInverse <<- NULL
+        x <<- newX
+    }
+    
+    getCachedInverse <- function() thisInverse
+    setCachedInverse <- function(inv) thisInverse <<- inv
+    
+    list(getOriginalMatrix = getOriginalMatrix,
+     setCachedInverse = setCachedInverse,
+     setCachedInverse = setCachedInverse,
+     getCachedInverse = getCachedInverse)
 }
 
 
@@ -57,16 +59,15 @@ makeCacheMatrix <- function(x = matrix()) {
 ##  - If the matrix is not square or invertible, running cacheSolve will result
 ##    in an error
 cacheSolve <- function(x, ...) {
-  ## Return a matrix that is the inverse of 'x'
-  
-  inverse <- x$getCachedInverse()
-  if (!is.null(inverse)) {
-    message("Inverse already cached, will not re-calculate")
-  } else {
-    data <- x$getOriginalMatrix()
-    inverse <- solve(data, ...)
-    x$setCachedInverse(inverse)
-  }
-  
-  inverse
+    ## Return a matrix that is the inverse of 'x'
+    inverse <- x$getCachedInverse()
+    if (!is.null(inverse)) {
+        message("Inverse already cached, will not re-calculate")
+    } else {
+        data <- x$getOriginalMatrix()
+        inverse <- solve(data, ...)
+        x$setCachedInverse(inverse)
+    }
+    
+    inverse
 }
